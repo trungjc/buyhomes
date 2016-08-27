@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/BuyHome/packages
+/BuyHome/BuyHome/bin
+/BuyHome/.vs
+/BuyHome/BuyHome/obj/Debug
+/BuyHome/BuyHome/Properties
+*.config
+*.csproj
+*.user
+*.json
+*.defaults
+*.sln

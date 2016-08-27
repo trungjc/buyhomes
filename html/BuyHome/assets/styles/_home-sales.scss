@@ -1,0 +1,88 @@
+﻿.home-sale {
+    .banner-sm {
+        min-height: 325px;
+        background-image: url('../images/bg_banner_2.PNG');
+        background-size: cover;
+        margin-bottom: 4px;
+    }
+
+    .top-house {
+        padding-bottom: 0;
+
+        .slider {
+            margin-bottom: 0;
+        }
+    }
+
+    .title {
+        border-top: 1px solid $blue-secondary-color;
+        display: block;
+        margin-bottom: 12px;
+
+        a {
+            background-color: $blue-secondary-color;
+            color: #fff;
+            font-size: 13px;
+            padding: 3px 20px;
+            @include border-radius-bottom(4px);
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .current-news {
+        span {
+            display: block;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+    }
+
+    .list-news {
+        ul {
+            list-style: none;
+
+            li {
+                border-bottom: 1px solid #7fcbec;
+                padding: 5px 0;
+
+                .display-table {
+                    > span {
+                        font-size: 14px;
+
+                        &:first-child {
+                            width: 110px;
+                            min-width: 110px;
+                            overflow: hidden;
+
+                            img {
+                                max-width: 100%;
+                            }
+                        }
+
+                        &:nth-child(2) {
+                            padding: 0 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .list-item {
+        margin-top: 14px;
+
+        .row {
+            margin-left: -7px;
+            margin-right: -7px;
+        }
+
+        .item {
+            padding: 0 7px;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+    }
+}

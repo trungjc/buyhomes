@@ -1,0 +1,407 @@
+.banner {
+    min-height: 530px;
+    background-image: url('../images/bg_banner.PNG');
+    background-size: cover;
+    margin-bottom: 4px;
+}
+
+.group-search {
+    width: 100%;
+    max-width: 840px;
+    min-height: 74px;
+    border-radius: 4px;
+    background-color: #fff;
+    margin: 0 auto;
+    border: 1px solid #ffffff;
+    border-top: 0;
+    border-bottom: 0;
+    position: absolute;
+    z-index: 9;
+    left: 0;
+    right: 0;
+    margin-top: -33px;
+    padding: 10px 25px;
+
+    img {
+        max-width: 52px;
+        margin-right: 10px;
+    }
+
+    .search-info {
+        span {
+            font-size: 22px;
+
+            &:nth-child(1) {
+                margin-right: 8px;
+            }
+
+            &:nth-child(2) {
+                margin-right: 6px;
+            }
+        }
+
+        @include xs {
+            display: block;
+            float: none !important;
+            text-align: center;
+        }
+    }
+
+
+}
+
+.top-house {
+    background-color: #4d4d4d;
+    padding-bottom: 30px;
+
+    .slider {
+        padding-top: 75px;
+        min-height: 335px;
+        background-image: url('../images/bg_slider.PNG');
+        background-size: 100% 100%;
+        margin-bottom: 20px;
+
+        .slick-top {
+            > div {
+                .img-circle {
+                    width: 165px;
+                    height: 165px;
+                    overflow: hidden;
+                    margin: 0 auto;
+                    border: 3px solid #fff;
+                    margin-bottom: 20px;
+                    img{
+                        width:100%;
+                        height:100%;
+                    }
+                }
+
+
+                span {
+                    color: $blue-primary-color;
+                    font-size: 20px;
+                    display: block;
+                    text-align: center;
+                    margin-bottom: 5px;
+
+                    @include device {
+                        width: 100%;
+                    }
+                }
+
+                a {
+                    font-size: 11px;
+                    color: #fff;
+                    display: block;
+                    text-align: center;
+
+                    &:hover {
+                        color: $blue-primary-color;
+                        text-decoration: none;
+                    }
+
+                    @include device {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .slick-next:before,
+            .slick-prev:before {
+                font: normal normal normal 14px/1 FontAwesome;
+                opacity: 1;
+            }
+
+            .slick-next,
+            .slick-prev {
+                @include translate2D(0,-40%);
+                top: 40%;
+                height: 28px;
+                background-color: $blue-secondary-color;
+                color: #fff;
+                opacity: 1;
+                z-index:9;
+
+                &.slick-disabled {
+                    background-color: #d9d9d9;
+                }
+            }
+
+            .slick-next {
+                right: 0;
+                @include border-left-radius(4px);
+
+                &:before {
+                    content: "\f105";
+                }
+            }
+
+            .slick-prev {
+                left: 0;
+                @include border-right-radius(4px);
+
+                &:before {
+                    content: "\f104";
+                }
+            }
+        }
+
+        @include device {
+            padding-top: 125px;
+            padding-bottom: 5px;
+
+            .slick-slide {
+                text-align: center;
+
+                img {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+
+    .most-sale {
+        ul {
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid $blue-primary-color;
+            position: relative;
+            margin-left: 35px;
+            margin-bottom: 20px;
+
+            li {
+                list-style: none;
+                float: left;
+                padding: 0 19px;
+
+                a {
+                    color: #666769;
+                    font-size: 14px;
+                    @include transition(0.2s);
+
+                    &:hover {
+                        color: #fff;
+                        text-decoration: none;
+                    }
+                }
+
+                &.active {
+                    border-right: 1px solid $blue-primary-color;
+
+                    a {
+                        color: #fff;
+                        font-size: 18px;
+                    }
+                }
+            }
+
+            &:before {
+                content: "";
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                left: -35px;
+                top: 0;
+                background-image: url('../images/ico_money.PNG');
+                background-size: cover;
+            }
+        }
+
+        .list-image {
+            padding-left: 15px;
+
+            .box {
+                width: 235px;
+                color: #000;
+
+                @include device {
+                    margin: 0 auto;
+                }
+
+                .bg-white {
+                    padding: 10px 10px;
+                }
+
+                img {
+                    width: 235px;
+                    height: 195px;
+                }
+
+
+                hr {
+                    margin: 0;
+                    margin-bottom: 10px;
+                    border-top: 2px solid $blue-primary-color;
+                }
+
+                .content {
+                    padding: 0 10px;
+                    padding-bottom: 15px;
+                }
+            }
+
+            @include device {
+                .slick-slide {
+                    text-align: center;
+
+                    img {
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.light-bg {
+    @include device {
+        display: none;
+    }
+
+    &.search {
+        margin-top: -73px;
+        left: 260px;
+    }
+
+    &.menul {
+        width: 751px;
+        height: 91px;
+        margin-top: -92px;
+        left: 280px;
+    }
+
+    &.footer {
+        margin-top: 5px;
+        margin-left: 35px;
+    }
+}
+
+.help {
+    padding: 20px 10px;
+    background-color: #fff;
+
+    .left-panel {
+        padding: 0;
+        padding-right: 5px;
+
+        .block {
+            margin-bottom: 20px;
+
+            .title-black {
+                margin-bottom: 15px;
+                
+                @include device {
+                    background-color: $blue-primary-color;
+                    color: #fff;
+                    font-family: 'RobotoSlab-Regular';
+                    &:before {
+                        background-image: url("../images/ico_money.PNG");
+                    }
+                }
+            }
+
+            .list {
+                padding: 15px 0px;
+
+                .blue-bullet {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+
+                    li {
+                        display: table;
+                        padding-bottom: 20px;
+
+                        span,
+                        a {
+                            display: table-cell;
+                            vertical-align: top;
+                            color: #000;
+                        }
+
+                        span {
+                            padding-right: 10px;
+
+                            i {
+                                color: $blue-primary-color;
+                                font-size: 8px;
+                            }
+                        }
+
+                        a {
+                            padding-top: 3px;
+                        }
+                    }
+                }
+            }
+
+            &.news-second {
+                .box-img {
+                    span {
+                        display: block;
+                        background-color: $blue-primary-color;
+                        padding: 10px 15px;
+                        font-family: $font-bold;
+                        color: #fff;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    .right-panel {
+        padding: 0;
+        padding-left: 5px;
+
+        .most-view {
+            border: 1px solid $blue-primary-color;
+            border-top: 0;
+            @include border-radius(5px);
+            @include border-radius-top(0);
+            font-size: 14px;
+            position: relative;
+
+            .content {
+                padding: 10px 12px;
+                max-height: 360px;
+                overflow: auto;
+                width: 100%;
+
+                .mCSB_scrollTools {
+                    margin-right: -5px;
+                }
+            }
+
+            .list-view {
+                display: table;
+
+                a {
+                    color: #000;
+                    transition: all ease 0.2s;
+
+                    &:hover {
+                        opacity: 0.8;
+                        text-decoration: none;
+                    }
+                }
+
+
+                span {
+                    display: table-cell;
+                    vertical-align: top;
+                    padding: 10px 6px;
+
+                    &:nth-child(1) {
+                        min-width: 105px;
+                        width: 105px;
+                    }
+                }
+            }
+
+            .view-more {
+                margin-right: 15px;
+            }
+        }
+    }
+}
