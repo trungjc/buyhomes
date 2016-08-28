@@ -1,0 +1,180 @@
+$screen-md: 1025px !default;
+// Font family
+@font-face {
+    font-family: 'Georgia';
+    src: url('../fonts/Georgia.eot');
+    src: url('../fonts/Georgia.woff') format('woff'), url('../fonts/Georgia.ttf') format('truetype'), url('../fonts/Georgia.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// ==============================================
+// Font Face
+// ==============================================
+@mixin font-face($fontname: fontFamilyName, $fontsrc: fontFileSrc) {
+    @font-face {
+        font-family: quote($fontname);
+        src: url('#{unquote($fontsrc)}.eot');
+        src: url('#{unquote($fontsrc)}.eot?#iefix') format('embedded-opentype'), url('#{unquote($fontsrc)}.woff') format('woff'), url('#{unquote($fontsrc)}.ttf') format('truetype'), url('#{unquote($fontsrc)}.svg##{unquote($fontname)}') format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+}
+
+@include font-face("ElegantIcons", "../fonts/ElegantIcons");
+// Color
+$white: #fff;
+$black: #000;
+$vhFull: 100vh;
+$minVhFull: 900px;
+$minVhFullMobile: 540px;
+// Font-faceregular
+$light: 300;
+$regular: 400;
+$semi-bold: 600;
+$bold: 700;
+// =============================================
+// Compass Defaults
+// =============================================
+// Border Radius
+$default-border-radius: 5px;
+// =============================================
+// Primary Break Points
+// =============================================
+// These should be used with the bp (max-width, xx) mixin
+// where a min-width is used, remember to +1 to break correctly.
+// If these are changed, they must also be updated in app.js
+$bp-xsmall: 480px;
+$bp-mobile: 767px;
+$bp-medium: 768px;
+$bp-large: 1024px;
+$bp-xlarge: 1280px;
+$bp-xxlarge: 1920px;
+// =============================================
+// Base Values
+// =============================================
+// Spacing
+$gap: 10px;
+$trim: 30px;
+// This will get applied on viewports smaller than 480px
+$trim-small: 15px;
+// Padding that will get applied to content areas
+$box-spacing-large: 20px;
+// Standard padding around box elements such as banner messages, etc
+$box-spacing: 10px;
+// Standard spacing between elements within a box, such as "Add to cart", "Price box", etc
+$element-spacing: 7px;
+// Dimensions
+// =============================================
+// Brand Colors
+// =============================================
+// Usually not used directly in Sass partials.
+// Only used to define context-based color vars in this file.
+$c-blue: #3399CC;
+$c-green: #11B400;
+$c-pink: #d11342;
+$c-orange: #dc8533;
+$c-red: #CF5050;
+$c-yellow: #FFDD15;
+$c-black: #000000;
+$c-dark: #333;
+$c-gray: #62676b;
+$c-graybg: #f4f4f4;
+$c-red: #e8000c;
+// =============================================
+// Base Colors
+// =============================================
+// Text
+$c-text: #333;
+$c-text-gray: #62676b;
+$c-text-gray-md: #666666;
+$c-text-light-gray: #cbcbcb;
+$c-text-white: #ffffff;
+$c-text-black: #212121;
+// Primary font color for headings and other non-link text
+$c-text-primary: #00a2d3;
+$c-link: #897C5C;
+$c-link-hover: #897C5C;
+$c-text-yellow: #897c5c;
+$c-bg-highlight: #e8000c;
+$c-bg-category: #988a66;
+// Interaction
+$c-action: $c-pink;
+$c-stimulus: darken($c-blue, 15%);
+$c-subtle: #A0A0A0;
+$c-special: #d01241;
+// Notifications
+$c-danger: #DF280A;
+$c-danger-background: #FAEBE7;
+$c-success: $c-green;
+$c-success-background: #EFF5EA;
+$c-warn: #E26703;
+$c-warn-background: #F9EBE6;
+// Global Elements
+$c-divider-border: #ECECEC;
+$c-cms-border: #e9aa20;
+
+// =============================================
+// Element Colors
+// =============================================
+// Buttons
+$c-button: #00a2d3;
+$c-button-hover: darken($c-blue, 5%);
+$c-button-active: darken($c-blue, 10%);
+$c-trans: transparent;
+$bg-trans: none;
+// Secondary Buttons
+$c-button-secondary: #DDDDDD;
+$c-button-secondary-hover: darken(#DDDDDD, 5%);
+$c-button-secondary-active: darken(#DDDDDD, 10%);
+$c-button-subtle: #ECECEC;
+// Forms
+$c-input-bg: #e7e7e7;
+$c-input-bg-hover: #f8f8f8;
+$c-input-border: $c-input-bg;
+$c-input-border-hover: #00a2d3;
+$c-input-placeholder: $c-text-gray;
+$c-input-text: $c-text;
+$c-fieldset-border: #CCCCCC;
+$c-fieldset-border-light: #EDEDED;
+$c-border: #dedede;
+// Headings
+$c-h1: #fff;
+// Link
+// Module (generic)
+// Table
+// Tabs
+// Email
+// =============================================
+// Typography
+// =============================================
+// Google Web Font stylesheet is included via layout XML
+// Font Stacks
+$f-muli-regular: 'Muli', sans-serif;
+$f-muli-light: 'Muli', sans-serif;
+$f-josefin: 'Josefin Sans', sans-serif;
+$f-microsoft-jhengHei: 'Microsoft JhengHei', 'Heiti TC', 'Apple LiGothic Medium';
+$f-microsoft-yaHei: 'Microsoft YaHei', 'Heiti SC', 'Hiragino Sans GB';
+$f-ico: 'ElegantIcons';
+$f-stack-sans: $f-muli-regular;
+$b-line-height: 160%;
+// Font Sizes
+$f-size: 16px;
+$f-size-small: 14px;
+$f-size-xsmall: 12px;
+// Base Measures
+$b-margin-bottom: 1.5em;
+
+$contact-form-input-bg: #9a968e;
+$contact-form-input-border: #a7a49e;
+
+// Modal
+$modal-title-color: #8a7d5d;
+
+// Validate Form
+$validate-failed: #b00100;
+// =========== color
+$blue-primary-color: #00AAEB;
+$blue-secondary-color: #00b9ef;
+$font-bold: 'RobotoSlab-Bold';
+$font-light: 'RobotoSlab-Light';

@@ -56,8 +56,6 @@ if ( ! function_exists( 'whispli_setup' ) ) :
 				'main_menu'            => esc_html__( 'menu top', 'whispli' ),
 				'footer_primary_menu'          => esc_html__( 'Footer Primary Menu', 'whispli' ),
 				
-				'mobile_header_primary_menu'   => esc_html__( 'Mobile Header Primary Menu', 'whispli' ),
-				'mobile_header_secondary_menu' => esc_html__( 'Mobile Header Secondary Menu', 'whispli' ),
 				
 			)
 		);
@@ -119,12 +117,12 @@ function twentyfourteen_widgets_init() {
 		'after_title'   => '</h1>',
 	) );
 	register_sidebar( array(
-		'name'          => __( 'Footer Middle', 'twentyfourteen' ),
-		'id'            => 'sidebar-3',
-		'description'   => __( 'Appears in the footer middle section of the site.', 'twentyfourteen' ),
+		'name'          => __( 'top widget', 'twentyfourteen' ),
+		'id'            => 'top-widget',
+		'description'   => __( 'Appears in the top section of the site.', 'twentyfourteen' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
-		'before_title'  => '<h1 class="widget-title">',
+		'before_title'  => '<h1 class="widget-title" style="display:none">',
 		'after_title'   => '</h1>',
 	) );
 	register_sidebar( array(
@@ -147,9 +145,9 @@ function twentyfourteen_widgets_init() {
 		'after_title'   => '</h1>',
 	) );
 	register_sidebar( array(
-		'name'          => __( 'Footer right bottom', 'twentyfourteen' ),
-		'id'            => 'sidebar-5',
-		'description'   => __( 'Appears in the footer right section of the site.', 'twentyfourteen' ),
+		'name'          => __( 'Footer  bottom copy right', 'twentyfourteen' ),
+		'id'            => 'footer-2',
+		'description'   => __( 'Appears in the footer bottom section of the site.', 'twentyfourteen' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h1 class="widget-title">',
@@ -157,26 +155,33 @@ function twentyfourteen_widgets_init() {
 	) );
 }
 add_action( 'widgets_init', 'twentyfourteen_widgets_init' );
+
+
 /**
  * Enqueue scripts and styles.
  */
 function whispli_scripts() {
 
-	$version = '2.0';
-wp_enqueue_style( 'whispli-vender-style', get_template_directory_uri() . '/assets/css/vendor.css' );
-	wp_enqueue_style( 'whispli-primary-style', get_template_directory_uri() . '/assets/css/main.css' );
+
+wp_enqueue_style( 'whispli-bootstrap-style', get_template_directory_uri() . '/assets/styles/bootstrap.css' );
+wp_enqueue_style( 'whispli-mCustomScrollbar-style', get_template_directory_uri() . '/assets/styles/jquery.mCustomScrollbar.css' );
+	wp_enqueue_style( 'whispli-primary-style', get_template_directory_uri() . '/assets/styles/main.css' );
 
 	wp_enqueue_style( 'whispli-style', get_stylesheet_uri() );
 
-	wp_enqueue_script( 'whispli-vendor', get_template_directory_uri() . '/assets/js/vendor.js', array(), $version, true );
+	
+	wp_enqueue_script( 'whispli-jquery', get_template_directory_uri() . '/assets/scripts/jquery.js', array());
 
-wp_enqueue_script( 'whispli-plugin', get_template_directory_uri() . '/assets/js/plugins.js', array(), $version, true );
+	wp_enqueue_script( 'whispli-bootstrap', get_template_directory_uri() . '/assets/scripts/bootstrap.js', array());
+
+wp_enqueue_script( 'whispli-slick', get_template_directory_uri() . '/assets/scripts/slick.min.js', array());
+wp_enqueue_script( 'whispli-scrollbar', get_template_directory_uri() . '/assets/scripts/jquery.mCustomScrollbar.concat.min.js', array());
 	// About page Javascript
 	if (is_404() ||  is_page_template( 'tmpl-about.php' ) || is_singular( 'product' ) || is_front_page() ) {
 		
 	}
 	
-	wp_register_script( 'whispli-main', get_template_directory_uri() . '/assets/js/main.js', array(), $version, true );
+	wp_register_script( 'whispli-main', get_template_directory_uri() . '/assets/scripts/main.js', array(), $version, true );
 	wp_localize_script(
 		'whispli-main',
 		'whispli_localize',
@@ -712,4 +717,95 @@ function custom_breadcrumbs() {
            
     }
        
+}
+
+
+add_filter( 'admin_init', 'whispli_general_settings_register_fields' );
+if (!function_exists('whispli_general_settings_register_fields')) {
+	function whispli_general_settings_register_fields() {
+		register_setting( 'general', 'facebook_link', 'esc_attr' );
+		add_settings_field( 'facebook_link', '<label for="facebook_link">' . __( 'Facebook', 'whispli' ) . '</label>', 'whispli_general_settings_facebook_link', 'general' );
+
+		register_setting( 'general', 'twitter_link', 'esc_attr' );
+		add_settings_field( 'twitter_link', '<label for="twitter_link">' . __( 'Twitter', 'whispli' ) . '</label>', 'whispli_general_settings_twitter_link', 'general' );
+
+		register_setting( 'general', 'skype_link', 'esc_attr' );
+		add_settings_field( 'skype_link', '<label for="skype_link">' . __( 'skype', 'whispli' ) . '</label>', 'whispli_general_settings_skype_link', 'general' );
+
+		register_setting( 'general', 'google_plus', 'esc_attr' );
+		add_settings_field( 'google_plus', '<label for="google_plus">' . __( 'google +', 'whispli' ) . '</label>', 'whispli_general_settings_google_plus', 'general' );
+
+
+		register_setting( 'general', 'instagram', 'esc_attr' );
+		add_settings_field( 'instagram', '<label for="instagram">' . __( 'instagram', 'whispli' ) . '</label>', 'whispli_general_settings_instagram', 'general' );
+
+	register_setting( 'general', 'tuvan', 'esc_attr' );
+		add_settings_field( 'instagram', '<label for="tuvan">' . __( 'HotLine', 'whispli' ) . '</label>', 'whispli_general_settings_tuvan', 'general' );
+
+		register_setting( 'general', 'google_analytic', 'esc_attr' );
+		add_settings_field( 'google_analytic', '<label for="google_analytic">' . __( 'Google Analytics', 'whispli' ) . '</label>', 'whispli_general_settings_google_analytic', 'general' );
+
+	}
+}
+if (!function_exists('whispli_general_settings_facebook_link')) {
+	function whispli_general_settings_facebook_link() {
+		$value = esc_attr( get_option( 'facebook_link' ) );
+		echo '<input type="text" style="width: 80%;" id="facebook_link" class="regular-text" name="facebook_link" value="' . $value . '" />';
+
+	}
+}
+
+if (!function_exists('whispli_general_settings_twitter_link')) {
+	function whispli_general_settings_twitter_link() {
+		$value = esc_attr( get_option( 'twitter_link' ) );
+		echo '<input type="text" style="width: 80%;" id="twitter_link" class="regular-text" name="twitter_link" value="' . $value . '" />';
+
+	}
+}
+
+if (!function_exists('whispli_general_settings_skype_link')) {
+	function whispli_general_settings_skype_link() {
+		$value = esc_attr( get_option( 'skype_link' ) );
+		echo '<input type="text" style="width: 80%;" id="skype_link" class="regular-text" name="skype_link" value="' . $value . '" />';
+	}
+}
+
+if (!function_exists('whispli_general_settings_google_plus')) {
+	function whispli_general_settings_google_plus() {
+		$value = esc_attr( get_option( 'google_plus' ) );
+		echo '<input type="text" style="width: 80%;" id="google_plus" name="google_plus"  value="' . $value . '" />';
+	}
+}
+
+if (!function_exists('whispli_general_settings_instagram')) {
+	function whispli_general_settings_instagram() {
+		$value = esc_attr( get_option( 'instagram' ) );
+		echo '<input type="text" style="width: 80%;"  id="instagram" name="instagram" value="' . $value . '" />';
+	}
+}
+
+if (!function_exists('whispli_general_settings_tuvan')) {
+	function whispli_general_settings_tuvan() {
+		$value = esc_attr( get_option( 'tuvan' ) );
+		echo '<input type="text" style="width: 80%;"  id="tuvan" name="tuvan" value="' . $value . '" />';
+	}
+}
+
+
+if (!function_exists('whispli_general_settings_google_analytic')) {
+	function whispli_general_settings_google_analytic() {
+		$value = esc_attr( get_option( 'google_analytic' ) );
+		echo '<input type="text" style="width: 80%;" id="google_analytic" class="regular-text" name="google_analytic" value="' . $value . '" />';
+	}
+}
+
+add_filter( 'whitelist_options', 'whispli_whitelist_options' );
+function whispli_whitelist_options( $whitelist_options ) {
+	$whitelist_options['general'][] = 'facebook_link';
+	$whitelist_options['general'][] = 'twitter_link';
+	$whitelist_options['general'][] = 'skype_link';
+	$whitelist_options['general'][] = 'footer_quote';
+	$whitelist_options['general'][] = 'google_analytic';
+
+	return $whitelist_options;
 }

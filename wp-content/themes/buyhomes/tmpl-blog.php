@@ -8,111 +8,277 @@
  */
 ?>
 <?php get_header(); ?>
+<div class="home-sale">
+<?php $src = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large', false, '' );  ?>
+<section class="banner" style="background-image: url(<?php echo $src[0]  ?>)">
+  <?php $atl = get_post_meta(get_post_thumbnail_id($post->ID) , '_wp_attachment_image_alt', true);
+    echo '<img style="display:none" src="'.$src[0].'" alt="'.$alt.'">';
+  ?>
+</section>
+
+<div class="light-bg search"></div>
+<div class="group-search blue-shadow">
+    <span class="search-info">
+        <span><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/ico_money.PNG" /></span>
+        <span>TƯ VẤN NHANH</span><span class="font-bold"><?php echo get_option('tuvan')?></span>
+    </span>
+    <span class="search-control pull-right">
+    <?php get_search_form() ?>
+        
+    </span>
+</div>
+<!--end banner-->
 <?php  while ( have_posts() ) : the_post();?>
-	<?php $acf_fields = get_fields();?>
-	<section class="main">
-		<div class="site-body-header">
-			<section class="hero-section-area parallax-bg">
-				<div class="container-fluid">
-					<div class="hero-section in-view">
-						<div class="slideshow">
-							<div class="slideshow-inner">
-								<div class="hero-caption">
-									<div class="container-fluid">
-										<div class="inner col-md-12">
-											<h2 class="heading"><?php echo whispli_remove_p_wrapper($acf_fields['hero_title'])?></h2>
-											<p><?php echo $acf_fields['view_from_products_label']?></p>
-											<div class="action-container">
-												<div class="form-group select-box ">
-													<select class="form-control" id="FilterSelect">
-														<option  value="all"  selected=""><?php echo _e('All Products', 'whispli')?></option>
-														<?php $categories = get_categories(array('hide_empty' => 1)); ?>
-														<?php foreach($categories as $cate) {?>
-															<option  value="<?php echo $cate->term_id;?>"><?php echo $cate->name?></option>
-														<?php }?>
-													</select>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<?php if(!empty($acf_fields['image'])) {?>
-									<div class="hero-image">
-										<div class="item purple-overlay parallax">
-											<div class="parallax-img" style="background-image: url('<?php echo whispli_resize_image($acf_fields['image']['url'], 1345, 578);?>')"></div>
-										</div>
-									</div>
-								<?php }?>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			<!-- END - hero-section =================================================================================== -->
-		</div>
-		<!-- end site-body-header-->
-		<div class="page-blocks">
-			<div class="container-fluid">
-				<div class="site-body">
-					<!-- END - hero =================================================================================== -->
-					<div class="container category-container">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="posts clearfix" id="posts">
-									<?php $posts = get_posts( array( 'posts_per_page' => 4 ) );?>
-									<?php global $post;?>
-									<?php if(!empty($posts)) {?>
-										<?php foreach($posts as $i=>$post) { ?>
-											<?php setup_postdata( $post );?>
-											<article class="post type-post fraudsec-category post-item-feature <?php if($i%2==0) {echo 'even';} else{echo 'odd';}?>" data-myorder="<?php echo $i+1?>">
-												<?php if ( has_post_thumbnail() ) { ?>
-													<div class="feature-image">
-														<?php $product_thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' ) ?>
-														<img src="<?php echo whispli_resize_image($product_thumbnail_src[0],470, 334,true,true,true); ?>" alt="">
-														<div class="visible-sm-block" style="background-image: url('<?php echo $product_thumbnail_src[0]; ?>')"></div>
-													</div>
-												<?php } else {?>
-													<div class="feature-image">
-														<img src="<?php echo get_template_directory_uri()?>/assets/img/blog_placeholder.png" alt="">
-														<div class="visible-sm-block" style="background-image: url('<?php echo get_template_directory_uri()?>/assets/img/blog_placeholder.png')"></div>
-													</div>
-												<?php } ?>
-												<?php $cates = get_the_category(); ?>
-												<div class="post-content">
-													<header class="entry-header">
-														<?php if(!empty($cates)) {?>
-															<div class="cat-links"><span><?php echo $cates[0]->name?></span></div>
-														<?php }?>
-														<h2 class="entry-title"><a rel="bookmark" href="<?php the_permalink()?>"><?php the_title(); ?></a></h2>
-														<div class="posted-on"><?php the_date('j M Y')?></div>
-													</header>
-													<div class="entry-content">
-														<?php echo truncateExtract(get_the_excerpt()); ?>
-													</div>
-													<a class="btn btn-default btn-border-dark read-more" href="<?php the_permalink()?>"><?php echo _e('Read more','whispli');?>
-														<span class="icon-arrow"></span></a>
-												</div>
-											</article>
-										<?php }
-										wp_reset_postdata();?>
-									<?php }?>
-								</div>
-								<?php if (count($posts) > 4) {?>
-									<div class="load-more center">
-										<a id="load-more-button" class="btn btn-default btn-border-dark " href="javascript:void(0)" data-filter="all"><?php echo _e('Load more','whispli') ?> <span class="icon-arrow"></span></a>
-									</div>
-								<?php }?>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- END -site-body =================================================================================== -->
-			</div>
-			<!-- END -container-fluid =================================================================================== -->
-	</section>
-	<!--end page-blocks-->
-	<!-- END - Main =================================================================================== -->
-<?php endwhile; // End of the loop.?>
+
+ <?php $acf_fields = get_fields(); ?>
+<section class="top-house ">
+             <?php if ( is_active_sidebar( 'top-widget' )  ) : ?>
+                        <div id="top-widget" class="slider" role="complementary">
+                            <div class="container-sm">
+                            <?php dynamic_sidebar( 'top-widget'); ?>
+                            </div>
+                        </div><!-- .sidebar .widget-area -->
+             <?php endif; ?>
+        <div class="most-sale">
+            <div class="container-sm"> 
+            <?php if (!empty($acf_fields['bdsbcl'])) {?>                    
+                    <ul class="clearfix">
+                       <?php $i=0; foreach($acf_fields['bdsbcl'] as $post_link) {?>
+                      <li  class="<?php
+                            if($i==0) echo'active'; else echo 'hidden-device hidden-sm hidden-xs'
+                       ?>">                
+                        <a  href="<?php echo $post_link['link'] ?>"> <?php echo $post_link['title'] ?></a>
+                      </li>
+                      <?php $i ++; }?>                  
+                    </ul>
+                <?php }?> 
+
+
+                 <?php if (!empty($acf_fields['bdsbc'])) {?>    
+                    <?php 
+                      $field_name = "bdsbc";
+                      $field = get_field_object($field_name);                 
+                    ?>
+                <div class="list-image clearfix" id="list-house">
+                 <?php $i=0;
+                  foreach($acf_fields['bdsbc'] as $post_new) { ?>
+                    <div> 
+                      <div class="box">
+                      <?php   
+                      $thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post_new['bdsbc-post']), 'medium');                  
+                      $alt_text = get_post_meta(get_post_thumbnail_id($post_new['bdsbc-post']) , '_wp_attachment_image_alt', true);
+                      ?>
+
+                       
+                            
+                             <?php if (!empty($thumb[0])) {?>   
+                              <a href="<?php echo esc_url( get_permalink($post_new['bdsbc-post']) ); ?>" style="background-image: url(<?php echo $thumb[0] ?>)">
+                              <img style="display:none" src="<?php echo $thumb[0] ?>" alt='<?php echo $alt_text ?>' /></a>
+                             <?php } else { ?>
+                              <a href="<?php echo esc_url( get_permalink($post_new['bdsbc-post']) ); ?>" class="no-image">
+                                  no image
+                                </a>
+                            <?php } ?>   
+                          
+
+                            <div class="bg-white">
+                                <hr />
+                                <span>
+                                      <?php  $content_post = get_post($post_new['bdsbc-post']);
+                                              $title = $content_post->post_title;
+                                              echo $title;
+                                      ?>
+                    
+                                </span>
+                            </div>
+
+                        </div>
+               
+                    </div>
+                <?php }?>
+                
+              </div>
+        <?php }?>
+          </div>
+        </div>
+        <!--most-sale-->
+</section>
+
+<section class="container-sm clearfix help">
+    <div class="col-md-8 col-xs-12 left-panel">
+    <?php custom_breadcrumbs(); ?>
+    <div class="block clearfix">
+                    <?php the_title( '<h1 class="clearfix entry-title"><span class="title-black blue">', '</span></h1>' ); ?>
+                      <?php if (!empty($acf_fields['the_title'])) {?>    
+ 					<span class="title">
+                        <a><?php $value = get_field( 'the_title');
+                        echo $value;
+                        ?> </a>
+                    </span>
+                      <?php } ?>
+                   
+                    <div class="clearfix col-xs-12 no-padding">
+                        <div class="row">
+                                <div class="col-md-7 col-sm-12 current-news">
+                                    <div class="auto-size" style="height: 246px; background-image: url(&quot;assets/images/home_1.PNG&quot;);">
+                                        <img src="assets/images/home_1.PNG" style="display: none;">
+                                    </div>
+                                    <span>NỀN ĐẤT 300M2 THỔ CƯ 100%, SỔ HỒNG RIÊNG, BAO SANG TÊN, CÓ THỂ TÁCH NHỎ TỪ NỀN 150M2. GIÁ: 285 TRIỆU / 1 NỀN.</span>
+                                </div>
+                                <div class="col-md-5 col-sm-12 list-news no-padding-left">
+                                    <div class="clearfix">
+                                        <span class="title-black blue">XEM NHIỀU</span>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <span class="display-table">
+                                                <span class="display-table-cell vertical-middle">
+                                                    <img src="assets/images/home_1.PNG">
+                                                </span>
+                                                <span class="display-table-cell vertical-middle">
+                                                    Cần mua đất mỹ phước 3, mua đất khu f, mua nhanh với giá cao, thanh toán liền
+                                                </span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            <?php if (!empty($acf_fields['cam-nang-dau-tu'])) {?>  
+
+              <div class="block">   
+                <?php $field_name = "cam-nang-dau-tu";
+                $field = get_field_object($field_name); ?>
+                 <span class="title-black"><?php echo $field['label'] ?></span>
+                  <div class="clearfix list">
+                
+                    <ul class="blue-bullet row">
+                       <?php foreach($acf_fields['cam-nang-dau-tu'] as $item) {
+                        $content_post = get_post($item['post-cndt']);
+                        $title = $content_post->post_title; ?>
+                      <li  class="col-sm-6 camnang">                
+                         <span><i aria-hidden="true" class="fa fa-circle"></i></span>
+                        <a href="<?php echo esc_url( get_permalink($item['post-cndt']) ); ?>"> <?php echo $title; ?></a>
+                      </li>
+                      <?php }?>
+                  
+                    </ul>
+                    </div>
+
+                </div>
+                <?php }?>   
+
+              <?php if (!empty($acf_fields['du_an_hot'])) {?>   
+               <div class="block news-second">
+                <?php $field_name = "du_an_hot";
+                $field = get_field_object($field_name); ?>
+                <span class="title-black"><?php echo $field['label'] ?></span>           
+                  <div class="row clearfix list">
+                      <div class="col-sm-6">                       
+                          <div class="box-img">
+                              <?php $i=0; foreach($acf_fields['du_an_hot'] as $post_hot) { ?>
+          
+                                  <?php 
+                                    if ($i == 1) break;
+                                      $thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post_hot['post-hot']), 'large');                                       
+                                      $alt_text = get_post_meta(get_post_thumbnail_id($post_hot['post-hot']) , '_wp_attachment_image_alt', true);
+                                      ?>
+
+                                    <a href="<?php echo esc_url( get_permalink($post_hot['post-hot']) ); ?>"><img src="<?php echo $thumb[0] ?>" alt='<?php echo $alt_text ?>' />
+                                    </a>
+                   
+
+                                      <?php
+                                          $content_post = get_post($post_hot['post-hot']);
+                                          $title = $content_post->post_title; ?>
+                                       <span>
+                                        <?php  echo  $title ; ?>
+                                        </span>
+     
+                               <?php  $i ++ ; ?>
+
+                     <?php }?>
+
+                    </div>     
+                  </div>
+                  <div class="col-sm-6">
+                    <ul class="blue-bullet">
+                     <?php foreach($acf_fields['du_an_hot'] as $post_hot) {
+                            $content_post = get_post($post_hot['post-hot']);
+                            $title = $content_post->post_title; ?>
+                          <li>                
+                             <span><i aria-hidden="true" class="fa fa-circle"></i></span>
+                            <a href="<?php echo esc_url( get_permalink($post_hot['post-hot']) ); ?>"> <?php echo $title; ?></a>
+                          </li>
+                          <?php }?>
+                    
+                  </ul>
+                </div>
+                </div>
+            </div>
+        <?php }?>
+
+
+         <?php if (!empty($acf_fields['tin-tuc-thi-truong'])) {?>    
+               <div class="block news-second">
+                <?php $field_name = "tin-tuc-thi-truong";
+                $field = get_field_object($field_name); ?>
+                <span class="title-black"><?php echo $field['label'] ?></span>           
+                  <div class="row clearfix list">
+                      <div class="col-sm-6">                       
+                          <div class="box-img">
+                              <?php $i=0; foreach($acf_fields['tin-tuc-thi-truong'] as $post_new) { ?>
+          
+                                  <?php 
+                                    if ($i == 1) break;
+                                      $thumb = wp_get_attachment_image_src( get_post_thumbnail_id($post_new['post-new']), 'large'); 
+                                      $alt_text = get_post_meta(get_post_thumbnail_id($post_new['post-new']) , '_wp_attachment_image_alt', true);
+                                      ?>
+
+                                    <a href="<?php echo esc_url( get_permalink($post_new['post-new']) ); ?>"><img src="<?php echo $thumb[0] ?>" alt='<?php echo $alt_text ?>' />
+                                    </a>
+                   
+
+                                      <?php
+                                          $content_post = get_post($post_new['post-new']);
+                                          $title = $content_post->post_title; ?>
+                                       <span>
+                                        <?php  echo  $title ; ?>
+                                        </span>
+     
+                               <?php  $i ++ ; ?>
+
+                     <?php }?>
+
+                    </div>     
+                  </div>
+                  <div class="col-sm-6">
+                    <ul class="blue-bullet">
+                     <?php foreach($acf_fields['tin-tuc-thi-truong'] as $post_new) {
+                            $content_post = get_post($post_new['post-new']);
+                            $title = $content_post->post_title; ?>
+                          <li>                
+                             <span><i aria-hidden="true" class="fa fa-circle"></i></span>
+                            <a href="<?php echo esc_url( get_permalink($post_new['post-new']) ); ?>"> <?php echo $title; ?></a>
+                          </li>
+                          <?php }?>
+                    
+                  </ul>
+                </div>
+                </div>
+            </div>
+        <?php }?>
+
+    </div>
+
+<?php endwhile;?>
+    <!--end col8-->
+    <?php get_sidebar(); ?>
+</section>
+</div>
 <?php
 get_footer();
 ?>
