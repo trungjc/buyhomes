@@ -57,7 +57,7 @@ if ( isset( $locations['footer_primary_menu'] ) ) {
                         </ul>
                     </div> -->
                     <div class="clearfix">
-                        <h1><a href="#"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/logo.PNG" alt="logo" /></a></h1>
+                        <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/logo.PNG" alt="logo" /></a></h1>
                     </div>
                     <div class="clearfix hidden-device hidden-sm hidden-xs">
                         <ul class="social pull-right">

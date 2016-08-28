@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Blog grid
+ * Template Name: Blog list
  *
  * @package    WordPress
  * @subpackage Whispli
@@ -37,7 +37,7 @@
 	                </div><!-- .sidebar .widget-area -->
 	     <?php endif; ?>
 	<?php  while ( have_posts() ) : the_post();?>
- 	<?php $acf_fields = get_fields(); ?>
+ 		<?php $acf_fields = get_fields(); ?>
         <div class="most-sale">
             <div class="container-sm"> 
             <?php if (!empty($acf_fields['bdsbcl'])) {?>                    
@@ -186,11 +186,13 @@ $cat = get_field( 'category_view_post');
     );
   $custom_query = new WP_Query( $custom_args ); ?>
   <?php if ( $custom_query->have_posts() ) : ?>
-  	<div class="list-item">
-  		<div class="row">
+  	
+  	<div class="list-item list-item-new">
+  	<div class="list-title-tag"><span>NEWS</span></div>
+  		<div class="clearfix">
 			    <!-- the loop -->
 			    <?php while ( $custom_query->have_posts() ) : $custom_query->the_post(); ?>
-			      <div class="col-md-3 col-sm-4 col-xs-12 item">
+			      <div class="list-item-blog">
 			       	
 			       	<?php
 						$thumb = wp_get_attachment_image_src(get_post_thumbnail_id($custom_query->ID), 'medium');                                      
@@ -200,14 +202,11 @@ $cat = get_field( 'category_view_post');
 			       	 	<a  class="img" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" style="background-image:url(<?php  echo $thumb[0] ?>)">
                         	<img  style="display:none" src="<?php echo $thumb[0] ?>" alt='<?php echo $alt_text ?>' />
                        </a>
-			       	 <?php } else { ?>
-			       	 <a class="no-img" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-                        	no image
-                       </a>
-
 			       	 <?php } ?>
-			       	 
+			       	 <div class="body-text">
 			         <h3 class="heading"><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"  class="" ><?php the_title(); ?></a></h3>
+			         <?php the_excerpt(); ?>
+			         </div>
 			      </div>
 			    <?php endwhile; ?>
 			    <!-- end of the loop -->
@@ -224,7 +223,6 @@ $cat = get_field( 'category_view_post');
   <?php else:  ?>
     <p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
   <?php endif; ?>
-
 
 <?php if (!empty($acf_fields['hot'])) {?> 
   	
@@ -263,7 +261,8 @@ $cat = get_field( 'category_view_post');
 	<?php }
 	?>
 
-	</div>
+
+	 </div>
 <!--end content-body-->
 	
     <!--end col8-->

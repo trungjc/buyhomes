@@ -80,11 +80,6 @@ if ( ! function_exists( 'whispli_setup' ) ) :
 		 */
 		add_theme_support(
 			'post-formats', array(
-				'aside',
-				'image',
-				'video',
-				'quote',
-				'link',
 			)
 		);
 
@@ -201,7 +196,7 @@ add_action( 'wp_enqueue_scripts', 'whispli_scripts' );
 /**
  * Custom body class
  */
-
+/*
 add_filter( 'body_class', 'whispli_body_classes' );
 function whispli_body_classes( $classes ) {
 	// Remove default body classes
@@ -234,7 +229,7 @@ function whispli_body_classes( $classes ) {
 	}
 	return $classes;
 }
-
+*/
 /**
  * Define some page id
  */
@@ -483,7 +478,7 @@ function twentyfifteen_excerpt_more( $more ) {
 	$link = sprintf( '<a href="%1$s" class="more-link">%2$s</a>',
 		esc_url( get_permalink( get_the_ID() ) ),
 		/* translators: %s: Name of current post */
-		sprintf( __( 'Continue reading %s', 'twentyfifteen' ), '<span class="screen-reader-text">' . get_the_title( get_the_ID() ) . '</span>' )
+		sprintf( __( 'Continue reading %s', 'twentyfifteen' ), '' )
 		);
 	return ' &hellip; ' . $link;
 }
@@ -808,4 +803,62 @@ function whispli_whitelist_options( $whitelist_options ) {
 	$whitelist_options['general'][] = 'google_analytic';
 
 	return $whitelist_options;
+}
+function custom_pagination($numpages = '', $pagerange = '', $paged='') {
+
+  if (empty($pagerange)) {
+    $pagerange = 2;
+  }
+
+  /**
+   * This first part of our function is a fallback
+   * for custom pagination inside a regular loop that
+   * uses the global $paged and global $wp_query variables.
+   * 
+   * It's good because we can now override default pagination
+   * in our theme, and use this function in default quries
+   * and custom queries.
+   */
+  global $paged;
+  if (empty($paged)) {
+    $paged = 1;
+  }
+  if ($numpages == '') {
+    global $wp_query;
+    $numpages = $wp_query->max_num_pages;
+    if(!$numpages) {
+        $numpages = 1;
+    }
+  }
+
+  /** 
+   * We construct the pagination arguments to enter into our paginate_links
+   * function. 
+   */
+  $pagination_args = array(
+    'base'            => get_pagenum_link(1) . '%_%',
+    'format'          => 'page/%#%',
+    'total'           => $numpages,
+    'current'         => $paged,
+    'show_all'        => False,
+    'end_size'        => 1,
+    'mid_size'        => $pagerange,
+    'prev_next'       => True,
+    'prev_text'       => __('&laquo;'),
+    'next_text'       => __('&raquo;'),
+    'type'            => 'plain',
+    'add_args'        => false,
+    'add_fragment'    => ''
+  );
+
+  $paginate_links = paginate_links($pagination_args);
+
+  if ($paginate_links) {
+    echo "<ul class='pagination custom-paging '>";
+     	echo "<li>";
+      		echo $paginate_links;
+      	echo "</li>";
+    echo "</ul>";
+  }
+
 }

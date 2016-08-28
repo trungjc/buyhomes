@@ -6,15 +6,14 @@
       $name = get_sub_field('name', $acfw); 
       $img= get_sub_field('image', $acfw); 
 
-        ?>  <!--  <?php var_dump($img) ?> -->
+        ?>  
               <div style="float:left;min-width:200px;">   
                <div class="img-circle">
-                  <a href="<?php echo $url ?>" >
-                 <!--  <?php var_dump($img) ?> -->
-                  <img src="<?php echo $img['sizes']['medium'] ?>" alt='<?php echo   $img['caption'] ?>' />
+                  <a class="img" href="<?php echo $url ?>" style="width:100%;height:100%;background-image:url(<?php echo $img['sizes']['medium'] ?>)" >
+                  <img style="display:none" src="<?php echo $img['sizes']['medium'] ?>" alt='<?php echo   $img['caption'] ?>' />
                   </a>
                </div>
-               <span><?php echo   $name ?></span>
+               <h3 class="heading"><?php echo   $name ?></h3>
                <a href="<?php echo $url ; ?>">Xem tiếp >></a>
              </div>
                 
