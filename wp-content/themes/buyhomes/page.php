@@ -1,68 +1,63 @@
+
+
+
 <?php
 /**
- * The template for displaying all pages.
+ * The template for displaying all single posts and attachments
  *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site may use a
- * different template.
- *
- * @link https://codex.wordpress.org/Template_Hierarchy
- *
- * @package whispli
+ * @package WordPress
+ * @subpackage Twenty_Fifteen
+ * @since Twenty Fifteen 1.0
  */
 
-get_header(); ?>
-
-	<section id="primary" class="content-area container">
-		<main id="main" class="site-main row" role="main">
-			<div class="col-xs-12 ">
-			
-					<header class="page-header" >
-						<?php 
-					twentyfifteen_post_thumbnail();
-				?>
-						<div class="page-header-text">
-							<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>		
-						
-						</div>
-					</header><!-- .page-header -->
-					
-		
-	<div class="page-detail">
+ get_header(); ?>
+<div class="home-sale">
+	<section class="banner-sm" >
+	<?php
+	global $post;
+	$categories = get_the_category(); //get all categories for this post
+	?>
+	  <?php echo do_shortcode('[wp_custom_image_category  size="full" term_id="'.$categories[0]->cat_ID.'" ]');  ?>
+	</section>
+	<div class="light-bg search"></div>
+	<div class="group-search blue-shadow">
+	    <span class="search-info">
+	        <span><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/ico_money.PNG" /></span>
+	        <span>TƯ VẤN NHANH</span><span class="font-bold"><?php echo get_option('tuvan')?></span>
+	    </span>
+	    <span class="search-control pull-right">
+	    <?php get_search_form() ?>
+	        
+	    </span>
+	</div>
+<!--end banner-->
+	<div class="container-sm clearfix help content-body single-body">
+		<div class="col-md-8 col-xs-12 left-panel">
+			<div class="page-detail page-general">					
 			<?php
-			while ( have_posts() ) : the_post();
+			// Start the loop.
+				while ( have_posts() ) : the_post(); ?>
+				<div class="breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">
+			    <?php if(function_exists('bcn_display'))
+			    {
+			        bcn_display();
+			    }?>
+				</div>
+			<?php 
+				get_template_part( 'content', 'page' );
 
-				?>
-				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-					<!-- <header class="entry-header">
-						<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-					</header>.entry-header -->
 
-					<div class="entry-content">
-						<?php
-						the_content();
-
-						wp_link_pages( array(
-							'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'whispli' ),
-							'after'  => '</div>',
-						) );
-						?>
-					</div><!-- .entry-content -->
-
-				</article><!-- #post-## -->
-				<?php
-
-				// If comments are open or we have at least one comment, load up the comment template.
-				if ( comments_open() || get_comments_number() ) :
-					comments_template();
-				endif;
-
-			endwhile; // End of the loop.
-			?></div>
+			endwhile;
+			?>
+			
+			</div>
+		</div>
+		<?php get_sidebar(); ?>
+	</div>
+	<!--end content-bbody-->
+	<div class="light-bg footer"></div>
+	<div class="wave"></div>
 </div>
-		</main><!-- #main -->
-	</div><!-- #primary -->
+<!--end home-sale-->
+<?php get_footer(); ?>
 
-<?php
-get_footer();

@@ -288,6 +288,32 @@ if ( ! function_exists( 'twentyfifteen_entry_meta' ) ) :
  * @since Twenty Fifteen 1.0
  */
 function twentyfifteen_entry_meta() {
+	if ( 'post' == get_post_type() ) {
+		if ( is_singular() || is_multi_author() ) {
+			printf( '<span class="byline"><span class="author vcard"><i aria-hidden="true" class="fa fa-user"></i><a class="url fn n" href="">%3$s</a></span></span>',
+				_x( 'Author', 'Used before post author name.', 'twentyfifteen' ),
+				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+				get_the_author()
+			);
+		}
+
+		/*$categories_list = get_the_category_list( _x( ', ', 'Used between list items, there is a space after the comma.', 'twentyfifteen' ) );
+		if ( $categories_list && twentyfifteen_categorized_blog() ) {
+			printf( '<span class="cat-links"><span class="screen-reader-text">%1$s </span>%2$s</span>',
+				_x( 'Categories', 'Used before category names.', 'twentyfifteen' ),
+				$categories_list
+			);
+		}
+*/
+		/*$tags_list = get_the_tag_list( '', _x( ', ', 'Used between list items, there is a space after the comma.', 'twentyfifteen' ) );
+		if ( $tags_list ) {
+			printf( '<span class="tags-links"><span class="screen-reader-text">%1$s </span>%2$s</span>',
+				_x( 'Tags', 'Used before tag names.', 'twentyfifteen' ),
+				$tags_list
+			);
+		}*/
+	}
+
 	if ( is_sticky() && is_home() && ! is_paged() ) {
 		printf( '<span class="sticky-post">%s</span>', __( 'Featured', 'twentyfifteen' ) );
 	}
@@ -295,7 +321,7 @@ function twentyfifteen_entry_meta() {
 	$format = get_post_format();
 	if ( current_theme_supports( 'post-formats', $format ) ) {
 		printf( '<span class="entry-format">%1$s<a href="%2$s">%3$s</a></span>',
-			sprintf( '<span class="screen-reader-text">%s </span>', _x( 'Format', 'Used before post format.', 'twentyfifteen' ) ),
+			sprintf( '<span class="screen-reader-text">|</span>', _x( 'Format', 'Used before post format.', 'twentyfifteen' ) ),
 			esc_url( get_post_format_link( $format ) ),
 			get_post_format_string( $format )
 		);
@@ -304,9 +330,9 @@ function twentyfifteen_entry_meta() {
 	if ( in_array( get_post_type(), array( 'post', 'attachment' ) ) ) {
 		$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
 
-		if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+		/*if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
 			$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
-		}
+		}*/
 
 		$time_string = sprintf( $time_string,
 			esc_attr( get_the_date( 'c' ) ),
@@ -315,40 +341,15 @@ function twentyfifteen_entry_meta() {
 			get_the_modified_date()
 		);
 
-		printf( '<span class="posted-on"><span class="screen-reader-text">%1$s </span><a href="%2$s" rel="bookmark">%3$s</a></span>',
+		printf( '<span class="posted-on"><span class="screen-reader-text">| </span><a href="%2$s" rel="bookmark">%3$s</a></span>',
 			_x( 'Posted on', 'Used before publish date.', 'twentyfifteen' ),
 			esc_url( get_permalink() ),
 			$time_string
 		);
 	}
 
-	if ( 'post' == get_post_type() ) {
-		if ( is_singular() || is_multi_author() ) {
-			printf( '<span class="byline"><span class="author vcard"><span class="screen-reader-text">%1$s </span><a class="url fn n" href="%2$s">%3$s</a></span></span>',
-				_x( 'Author', 'Used before post author name.', 'twentyfifteen' ),
-				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-				get_the_author()
-			);
-		}
-
-		$categories_list = get_the_category_list( _x( ', ', 'Used between list items, there is a space after the comma.', 'twentyfifteen' ) );
-		if ( $categories_list && twentyfifteen_categorized_blog() ) {
-			printf( '<span class="cat-links"><span class="screen-reader-text">%1$s </span>%2$s</span>',
-				_x( 'Categories', 'Used before category names.', 'twentyfifteen' ),
-				$categories_list
-			);
-		}
-
-		$tags_list = get_the_tag_list( '', _x( ', ', 'Used between list items, there is a space after the comma.', 'twentyfifteen' ) );
-		if ( $tags_list ) {
-			printf( '<span class="tags-links"><span class="screen-reader-text">%1$s </span>%2$s</span>',
-				_x( 'Tags', 'Used before tag names.', 'twentyfifteen' ),
-				$tags_list
-			);
-		}
-	}
-
-	if ( is_attachment() && wp_attachment_is_image() ) {
+	
+/*	if ( is_attachment() && wp_attachment_is_image() ) {
 		// Retrieve attachment metadata.
 		$metadata = wp_get_attachment_metadata();
 
@@ -359,13 +360,13 @@ function twentyfifteen_entry_meta() {
 			$metadata['height']
 		);
 	}
-
+*//*
 	if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
 		echo '<span class="comments-link">';
-		/* translators: %s: post title */
+		 translators: %s: post title 
 		comments_popup_link( sprintf( __( 'Leave a comment<span class="screen-reader-text"> on %s</span>', 'twentyfifteen' ), get_the_title() ) );
 		echo '</span>';
-	}
+	}*/
 }
 endif;
 
@@ -861,4 +862,60 @@ function custom_pagination($numpages = '', $pagerange = '', $paged='') {
     echo "</ul>";
   }
 
+}
+
+
+function joints_related_posts_default() {
+    global $post;
+    $tags = wp_get_post_tags( $post->ID );
+
+    if($tags) {
+        foreach( $tags as $tag ) {
+            $tag_arr .= $tag->slug . ',';
+        }
+
+        $args = array(
+        	'post_type' => 'post',
+            'tag' => $tag_arr,
+            'numberposts' => 10, /* You can change this to show more */
+            'post__not_in' => array($post->ID)
+        );
+        $related_posts = get_posts( $args );
+        
+        if($related_posts) { ?>
+        <div class="list-hot-relate">
+        	<h4 class="relate-title title-black blue">TIN LIÊN QUAN</h4>
+        	<div class="related_posts-default list-item  list-hot">
+        <div class="clearfix">
+           <?php foreach ( $related_posts as $post ) : setup_postdata( $post );   ?>
+                   
+                    <div class="list-item-blog clearfix" >
+                    		<?php $product_thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' ) ;?>
+						<a class="img" href="<?php the_permalink(); ?>" style="background-image: url(<?php echo whispli_resize_image($product_thumbnail_src[0]); ?>)">							
+							<img src="<?php echo whispli_resize_image($product_thumbnail_src[0]); ?>">
+							</a>
+                         <div class="body-text">
+	                         <h3 class=" heading"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+	                         </h3>
+	                     </div>
+                    </div>
+            <?php endforeach; ?>
+             </div></div></div>
+            <?php } } wp_reset_postdata();
+   
+}
+
+// post views
+function setAndViewPostViews($postID) {
+    $count_key = 'views';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count==''){
+        $count = 0;
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+    }else{
+        $count++;
+        update_post_meta($postID, $count_key, $count);
+    }
+    return $count; /* so you can show it */
 }

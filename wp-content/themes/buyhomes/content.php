@@ -26,7 +26,7 @@
 			endif;
 		?>
 		<div class="meta-header">
-		<?php twentyfifteen_entry_meta(); ?>
+		<?php twentyfifteen_entry_meta(); ?><?php echo "<span class='view'> | <i aria-hidden='true' class='fa fa-eye'></i> ".setAndViewPostViews(get_the_ID())."</span>";  ?>
 		</div>
 	</header><!-- .entry-header -->
 

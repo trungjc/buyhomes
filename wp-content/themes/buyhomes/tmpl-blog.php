@@ -101,7 +101,12 @@
 
 	<section class="container-sm clearfix help content-body">
     	<div class="col-md-8 col-xs-12 left-panel">
-	    <?php custom_breadcrumbs(); ?>
+	   <div class="breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">
+    <?php if(function_exists('bcn_display'))
+    {
+        bcn_display();
+    }?>
+</div>
 	    <div class="block clearfix">
 	        <?php the_title( '<h1 class="clearfix entry-title"><span class="title-black blue">', '</span></h1>' ); ?>
 	          <?php if (!empty($acf_fields['the_title'])) {?>    

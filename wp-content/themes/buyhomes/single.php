@@ -7,63 +7,56 @@
  * @since Twenty Fifteen 1.0
  */
 
-get_header(); ?>
-
-	<section id="primary" class="content-area container">
-		<main id="main" class="site-main row" role="main">
-			<div class="col-xs-12 ">
-			<?php 
-					$category = get_the_category(); 
-					//var_dump($category);
-					$root = get_category($category[0]->parent);
-					$cat_name_root=$root->name;
-					$parent = get_category($category[0]->term_id);
-					//print_r($parent);
-					$cat_id=$parent->term_id;
-					$cat_name=$parent->name;
-				?>
-					<header class="page-header" >
-						<?php twentyfifteen_post_thumbnail(); //echo do_shortcode('[wp_custom_image_category  size="full" term_id="'.$cat_id.'" ]');  ?>
-						<div class="page-header-text">
-							<h1 class="page-title"><?php echo $cat_name ?></h1>		
-						<?php
-
-							the_archive_description( '<div class="taxonomy-description">', '</div>' );
-						?>
-						</div>
-					</header><!-- .page-header -->
-				<div class="page-detail">
-					
+ get_header(); ?>
+<div class="home-sale">
+	<section class="banner-sm" >
+	<?php
+	global $post;
+	$categories = get_the_category(); //get all categories for this post
+	?>
+	  <?php echo do_shortcode('[wp_custom_image_category  size="full" term_id="'.$categories[0]->cat_ID.'" ]');  ?>
+	</section>
+	<div class="light-bg search"></div>
+	<div class="group-search blue-shadow">
+	    <span class="search-info">
+	        <span><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/ico_money.PNG" /></span>
+	        <span>TƯ VẤN NHANH</span><span class="font-bold"><?php echo get_option('tuvan')?></span>
+	    </span>
+	    <span class="search-control pull-right">
+	    <?php get_search_form() ?>
+	        
+	    </span>
+	</div>
+<!--end banner-->
+	<div class="container-sm clearfix help content-body single-body">
+		<div class="col-md-8 col-xs-12 left-panel">
+			<div class="page-detail">					
 			<?php
 			// Start the loop.
-			while ( have_posts() ) : the_post();
-			custom_breadcrumbs();
-			echo "<h1 class='page-title'>".$cat_name .'</h1>';
-				/*
-				 * Include the post format-specific template for the content. If you want to
-				 * use this in a child theme, then include a file called called content-___.php
-				 * (where ___ is the post format) and that will be used instead.
-				 */
+				while ( have_posts() ) : the_post(); ?>
+				<div class="breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">
+			    <?php if(function_exists('bcn_display'))
+			    {
+			        bcn_display();
+			    }?>
+				</div>
+			<?php 
 				get_template_part( 'content', get_post_format() );
 
 
 				// Previous/next post navigation.
-				the_post_navigation( array(
-					'next_text' => '<span class="meta-nav" aria-hidden="true">' . __( '', 'twentyfifteen' ) . '</span> ' .
-						'<span class="screen-reader-text">' . __( '', 'twentyfifteen' ) . '</span> ' .
-						'<span class="post-title">%title</span>',
-					'prev_text' => '<span class="meta-nav" aria-hidden="true">' . __( '', 'twentyfifteen' ) . '</span> ' .
-						'<span class="screen-reader-text">' . __( '', 'twentyfifteen' ) . '</span> ' .
-						'<span class="post-title">%title</span>',
-				) );
-
-			// End the loop.
+				joints_related_posts_default() ;
 			endwhile;
 			?>
-			<div class="back"><a href="<?php  $category_link = get_category_link( $cat_id ); echo esc_url($category_link); ?>" title="Category Name">Back</a></div>
+			
 			</div>
-			</div>
-		</main><!-- .site-main -->
-	</div><!-- .content-area -->
-
+		</div>
+		<?php get_sidebar(); ?>
+	</div>
+	<!--end content-bbody-->
+	<div class="light-bg footer"></div>
+	<div class="wave"></div>
+</div>
+<!--end home-sale-->
 <?php get_footer(); ?>
+
